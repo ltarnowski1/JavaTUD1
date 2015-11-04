@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -16,4 +19,18 @@ public class CityManagerTest {
         assertNotNull(cityManager.getConnection());
     }
 
+    @Test
+    public void checkAdding(){
+
+        City city = new City(NAME_1);
+
+        cityManager.clearCity();
+        assertEquals(1,cityManager.addCity(city));
+
+        List<City> cities = cityManager.getAllCity();
+        City cityRetrieved = cities.get(0);
+
+        assertEquals(NAME_1, cityRetrieved.getName());
+
+    }
 }

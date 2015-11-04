@@ -83,8 +83,8 @@ public class CityManager
 
             while (rs.next()) {
                 City c = new City();
-                c.setIdCity(rs.getInt("id"));
-                c.setName(rs.getString("name"));
+                c.setIdCity(rs.getInt("idCity"));
+                c.setName(rs.getString("Name"));
                 cities.add(c);
             }
 
