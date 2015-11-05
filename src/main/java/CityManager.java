@@ -2,9 +2,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by £ukasz on 2015-11-04.
- */
+
 public class CityManager
 {
 
@@ -17,6 +15,8 @@ public class CityManager
     private PreparedStatement addCityStmt;
     private PreparedStatement deleteAllCityStmt;
     private PreparedStatement getAllCityStmt;
+    private PreparedStatement updateCityStmt;
+    private PreparedStatement deleteCityStmt;
 
     private Statement statement;
 
@@ -45,7 +45,10 @@ public class CityManager
                     .prepareStatement("DELETE FROM City");
             getAllCityStmt = connection
                     .prepareStatement("SELECT idCity, Name FROM City");
-
+            updateCityStmt = connection
+                    .prepareStatement("UPDATE City SET Name = ? WHERE idCity = ?");
+            deleteCityStmt = connection
+                    .prepareStatement("DELETE FROM City WHERE idCity = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,7 +80,6 @@ public class CityManager
 
     public List<City> getAllCity() {
         List<City> cities = new ArrayList<City>();
-
         try {
             ResultSet rs = getAllCityStmt.executeQuery();
 
@@ -91,9 +93,32 @@ public class CityManager
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return cities;
+            return cities;
+        }
 
+        public int deleteCity(City city) {
+            int count = 0;
+            try {
+                deleteCityStmt.setInt(1, city.getIdCity());
 
-    }
+                count = deleteCityStmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return count;
+        }
+
+        public int updateCity(City city){
+            int count = 0;
+            try {
+                updateCityStmt.setString(1, city.getName());
+                updateCityStmt.setInt(2, city.getIdCity());
+
+                count = updateCityStmt.executeUpdate();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+            return count;
+        }
 
 }
