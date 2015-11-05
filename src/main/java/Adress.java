@@ -11,12 +11,18 @@ public class Adress {
         public Adress() {
         }
 
-        public Adress(int idCity, String Street, int Number) {
+        public Adress(int idAdress ,int idCity, String Street, int Number) {
             super();
+            this.idAdress = idAdress;
             this.idCity = idCity;
             this.Street = Street;
             this.Number = Number;
         }
+
+        public int getIdAdress() { return idAdress; }
+        public void setIdAdress(int idAdress) {
+        this.idAdress = idAdress;
+    }
         public int getIdCity() { return idCity; }
         public void setIdCity(int idCity) {
             this.idCity = idCity;
@@ -28,7 +34,7 @@ public class Adress {
         public int getNumber() {
         return Number;
     }
-        public void setNumer(int Number) {
+        public void setNumber(int Number) {
         this.Number = Number;
     }
 
