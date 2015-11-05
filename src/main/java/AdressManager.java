@@ -58,6 +58,7 @@ public class AdressManager {
     public static int addAdress(Adress a) {
         int count = 0;
         try {
+
             addAdressStmt.setInt(1, a.getIdCity());
             addAdressStmt.setString(2, a.getStreet());
             addAdressStmt.setInt(3, a.getNumber());

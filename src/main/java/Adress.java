@@ -11,9 +11,9 @@ public class Adress {
         public Adress() {
         }
 
-        public Adress(int idAdress ,int idCity, String Street, int Number) {
+        public Adress(int idCity, String Street, int Number) {
             super();
-            this.idAdress = idAdress;
+
             this.idCity = idCity;
             this.Street = Street;
             this.Number = Number;
