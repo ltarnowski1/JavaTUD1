@@ -69,6 +69,8 @@ public class CityManager
     }
     void clearCity() {
         try {
+            AdressManager am = new AdressManager();
+            am.deleteAllAdress();
             deleteAllCityStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

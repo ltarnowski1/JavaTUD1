@@ -13,7 +13,9 @@ public class AdressManager {
     private static PreparedStatement deleteAllAdressStmt;
     private static PreparedStatement getAllAdressStmt;
     private static PreparedStatement getAdressStmt;
-
+    private static PreparedStatement getAllCityByAdressStmt;
+    private static PreparedStatement resetIdAdressStmt;
+    private static PreparedStatement deleteAllAdresByCity;
     private Statement statement;
 
     public AdressManager() {
@@ -37,6 +39,9 @@ public class AdressManager {
             addAdressStmt = connection.prepareStatement("INSERT INTO Adress(idCity, Street, Number) VALUES (?, ?, ?)");
             deleteAllAdressStmt = connection.prepareStatement("DELETE FROM Adress");
             getAllAdressStmt = connection.prepareStatement("SELECT idAdress, idCity, Street, Number FROM Adress");
+            getAllCityByAdressStmt = connection.prepareStatement("SELECT idCity, Name FROM City WHERE idCity = ?");
+            resetIdAdressStmt = connection.prepareStatement("ALTER TABLE Adress ALTER COLUMN idAdress RESTART WITH 0");
+            deleteAllAdresByCity = connection.prepareStatement("DELETE FROM Adress WHERE idCity = ?");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,6 +50,14 @@ public class AdressManager {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    void resetIdAdress() {
+        try {
+            resetIdAdressStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void deleteAllAdress() {
@@ -87,6 +100,40 @@ public class AdressManager {
             e.printStackTrace();
         }
         return adressList;
+    }
+
+    public List<City> getAllCityByAdress(Adress a)
+    {
+        List<City> cityList = new ArrayList<City>();
+
+        try{
+            getAllCityByAdressStmt.setInt(1, a.getIdCity());
+            ResultSet rs = getAllCityByAdressStmt.executeQuery();
+
+            while(rs.next())
+            {
+                City c = new City();
+                c.setIdCity(rs.getInt("idCity"));
+                c.setName(rs.getString("Name"));
+                cityList.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityList;
+    }
+
+    public int deleteAllAdresByCity(City c)
+    {
+        int count = 0;
+        try{
+            deleteAllAdresByCity.setInt(1, c.getIdCity());
+            count = deleteAllAdresByCity.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
 }

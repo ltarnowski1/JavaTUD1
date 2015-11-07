@@ -51,6 +51,7 @@ public class CityManagerTest {
 
         assertEquals(NAME_2, firstC1.getName());
         assertEquals(firstC1.getIdCity(), firstC1.getIdCity());
+        cityManager.clearCity();
     }
 
     @Test

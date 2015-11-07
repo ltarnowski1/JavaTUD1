@@ -14,13 +14,9 @@ public class City
             this.Name = Name;
         }
         public int getIdCity() { return idCity; }
-        public void setIdCity(int idCity) {
-            this.idCity = idCity;
-        }
+        public void setIdCity(int idCity) { this.idCity = idCity; }
         public String getName() {
             return Name;
         }
-        public void setName(String Name) {
-            this.Name = Name;
-        }
+        public void setName(String Name) { this.Name = Name; }
 }

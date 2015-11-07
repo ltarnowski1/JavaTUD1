@@ -16,16 +16,49 @@ public class AdressManagerTest {
 
 
     @Test
-    public void checkConnection(){
+    public void checkConnection() {
         assertNotNull(am.getConnection());
     }
 
     @Test
-    public void checkAddAdress(){
+    public void checkAddAdress() {
         cm.clearCity();
         cm.resetIdCity();
         cm.addCity(c);
         am.deleteAllAdress();
         assertEquals(1, am.addAdress(a));
+        cm.clearCity();
+    }
+
+    @Test
+    public void checkGetAllCityByAdress()
+    {
+        cm.resetIdCity();
+        am.resetIdAdress();
+        cm.addCity(c);
+        am.addAdress(a);
+
+        List<City> cl = am.getAllCityByAdress(a);
+        City c1 = cl.get(0);
+
+        assertEquals(0, c1.getIdCity());
+        assertEquals("Gdynia", c1.getName());
+        cm.clearCity();
+        am.deleteAllAdress();
+    }
+
+    @Test
+    public void checkDeleteAllAdressByCity()
+    {
+        cm.resetIdCity();
+        am.resetIdAdress();
+        cm.addCity(c);
+        am.addAdress(a);
+
+        int count = am.deleteAllAdresByCity(c);
+
+        assertEquals(1, count);
+
+        cm.clearCity();
     }
 }
